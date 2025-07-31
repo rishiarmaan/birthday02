@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Countdown for Kashish!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fef2f2, #ffe4e6, #fce7f3); /* Soft, romantic gradient */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    /* Styles for the timer display */
+    #timer {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    /* Animation for the countdown numbers */
+    .timer-digit {
+      display: inline-block;
+      min-width: 2.5rem; /* Ensure consistent width for digits */
+      text-align: center;
+      animation: pop-in 0.5s ease-out;
+    }
+    @keyframes pop-in {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="text-gray-800">
+  <main class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-2xl w-full text-center transform transition-all duration-500 hover:scale-105">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-pink-700 mb-8 animate-fade-in-down">
+      ⏳ Countdown to Your Birthday! 🎉
+    </h2>
+    <div id="timer" class="text-5xl md:text-7xl text-purple-600 mb-10">Loading...</div>
+    <p class="text-xl text-gray-600 mb-8">Get ready for a day full of love, laughter, and celebrations!</p>
+    <a href="index.html" class="inline-block mt-8 px-8 py-3 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-all duration-300 ease-in-out transform hover:scale-105">
+      ← Back to Home
+    </a>
+  </main>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      // Set Kashish's birthday to August 2nd (month 7 is August as it's 0-indexed)
+      let nextBirthday = new Date(now.getFullYear(), 7, 2);
+
+      // If the birthday has passed this year, set it for next year
+      if (now > nextBirthday) {
+        nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+      }
+
+      const diff = nextBirthday - now; // Difference in milliseconds
+
+      // Calculate days, hours, minutes, seconds
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const timerElement = document.getElementById('timer');
+      // Update with new content, adding a class for animation
+      timerElement.innerHTML = `
+        <span class="timer-digit">${days}d</span>
+        <span class="timer-digit">${hours}h</span>
+        <span class="timer-digit">${minutes}m</span>
+        <span class="timer-digit">${seconds}s</span>
+      `;
+
+      // If countdown finishes, display a special message
+      if (diff < 0) {
+        timerElement.textContent = "Happy Birthday, Kashish! 🎉🎂";
+        // Stop updating once birthday is reached
+        clearInterval(countdownInterval);
+      }
+    }
+
+    // Update every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    // Initial call to display immediately
+    updateCountdown();
+  </script>
+  <style>
+    @keyframes fade-in-down {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-down {
+      animation: fade-in-down 1s ease-out forwards;
+    }
+  </style>
+</body>
+</html>

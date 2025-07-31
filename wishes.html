@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Wishes for Kashish!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+      z-index: 0;
+      /* Remove original background styles as video will cover */
+      /* background: linear-gradient(to bottom right, #fef2f2, #ffe4e6, #fce7f3); */
+    }
+
+    /* Video background styling */
+    #video-background {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1; /* Send the video to the background */
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    /* Overlay to make content more readable over the video */
+    .content-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
+      z-index: -1; /* Below the content, above the video */
+    }
+
+    .wish-message {
+      background: linear-gradient(to right, #fbcfe8, #fce7f3); 
+      border-left: 6px solid #ec4899;
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      line-height: 1.8;
+      font-size: 1.3rem;
+      color: #333;
+      text-align: center;
+      animation: slide-in-up 1s ease-out forwards;
+    }
+
+    @keyframes slide-in-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade-in-down {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in-down {
+      animation: fade-in-down 1s ease-out forwards;
+    }
+
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #ec4899;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="text-gray-800">
+
+  <video autoplay muted loop id="video-background">
+    <source src="assets/video/makewish.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  
+  <div class="content-overlay"></div>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="assets/music/Perfect-Instrumental.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <button id="musicToggle" class="fixed bottom-4 right-4 bg-pink-500 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-pink-600 transition z-50">
+    🔊 Music On
+  </button>
+
+  <main class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-3xl w-full text-center transform transition-all duration-500 hover:scale-105 relative z-10">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-pink-700 mb-8 animate-fade-in-down">
+      🎉 Birthday Wishes for You, My Love! 💖
+    </h2>
+    <div class="wish-message mb-8">
+      <p>
+        Happy Birthday to the most amazing girlfriend, Kashish! Every day with you is a gift, and your smile brightens my entire world. You bring so much joy, laughter, and warmth into my life.
+      </p>
+      <p class="mt-4">
+        Wishing you a day as beautiful and wonderful as you are, filled with all the happiness, love, and sweet surprises you deserve! May all your dreams come true. I love you more than words can say! 🎂✨
+      </p>
+    </div>
+
+    <div class="mt-10 p-6 bg-pink-50 rounded-2xl shadow-inner">
+      <h3 class="text-2xl font-bold text-pink-600 mb-4">
+        ✨ Generate a Custom Birthday Wish! ✨
+      </h3>
+      <textarea id="wishInput" class="w-full p-4 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 mb-4 text-gray-700" rows="4" placeholder="Enter keywords or themes for the wish (e.g., 'romantic', 'funny', 'future dreams', 'our memories')..."></textarea>
+      <button id="generateWishBtn" class="px-8 py-3 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center mx-auto">
+        <span id="buttonText">Generate Wish</span>
+        <div id="spinner" class="spinner ml-3 hidden"></div>
+      </button>
+      <div id="generatedWishOutput" class="mt-6 p-4 bg-pink-100 border border-pink-200 rounded-lg text-gray-800 text-left hidden">
+        <p class="font-semibold text-pink-700 mb-2">Your Custom Wish:</p>
+        <p id="wishContent" class="whitespace-pre-wrap"></p>
+      </div>
+      <div id="errorMessage" class="mt-4 text-red-600 hidden"></div>
+    </div>
+
+    <a href="index.html" class="inline-block mt-10 px-8 py-3 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-all duration-300 ease-in-out transform hover:scale-105">
+      ← Back to Home
+    </a>
+  </main>
+
+  <script>
+    const audio = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("musicToggle");
+
+    let isPlaying = true; // Assuming music starts playing
+
+    toggleBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        audio.pause();
+        toggleBtn.textContent = "🔇 Music Off";
+      } else {
+        audio.play();
+        toggleBtn.textContent = "🔊 Music On";
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Try to resume music after user interaction (for autoplay restrictions)
+    document.body.addEventListener("click", () => {
+      if (audio.paused && isPlaying) {
+        audio.play().catch(() => {});
+      }
+    }, { once: true });
+  </script>
+
+  <script>
+    const wishInput = document.getElementById('wishInput');
+    const generateWishBtn = document.getElementById('generateWishBtn');
+    const buttonText = document.getElementById('buttonText');
+    const spinner = document.getElementById('spinner');
+    const generatedWishOutput = document.getElementById('generatedWishOutput');
+    const wishContent = document.getElementById('wishContent');
+    const errorMessage = document.getElementById('errorMessage');
+
+    generateWishBtn.addEventListener('click', generateCustomWish);
+
+    async function generateCustomWish() {
+      const prompt = wishInput.value.trim();
+      if (!prompt) {
+        errorMessage.textContent = "Please enter some keywords or themes for the wish.";
+        errorMessage.classList.remove('hidden');
+        return;
+      }
+
+      buttonText.textContent = 'Generating...';
+      spinner.classList.remove('hidden');
+      generateWishBtn.disabled = true;
+      generatedWishOutput.classList.add('hidden');
+      errorMessage.classList.add('hidden');
+
+      let chatHistory = [];
+      chatHistory.push({ role: "user", parts: [{ text: `Write a heartfelt and creative birthday wish for my girlfriend, Kashish, incorporating the following themes/keywords: ${prompt}. Make it sound loving and personal, suitable for a special birthday website.` }] });
+
+      const payload = { contents: chatHistory };
+      const apiKey = ""; // Remember to put your actual API key here
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+      let retries = 0;
+      const maxRetries = 5;
+      const baseDelay = 1000;
+
+      while (retries < maxRetries) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            if (response.status === 429 && retries < maxRetries - 1) {
+              const delay = baseDelay * Math.pow(2, retries) + Math.random() * 500;
+              console.warn(`Rate limit hit. Retrying in ${delay / 1000}s...`);
+              await new Promise(res => setTimeout(res, delay));
+              retries++;
+              continue;
+            } else {
+              const errorData = await response.json();
+              throw new Error(`API error: ${response.status} ${response.statusText} - ${errorData.error?.message || 'Unknown error'}`);
+            }
+          }
+
+          const result = await response.json();
+
+          if (result.candidates && result.candidates.length > 0 &&
+              result.candidates[0].content && result.candidates[0].content.parts &&
+              result.candidates[0].content.parts.length > 0) {
+            const text = result.candidates[0].content.parts[0].text;
+            wishContent.textContent = text;
+            generatedWishOutput.classList.remove('hidden');
+          } else {
+            throw new Error("No valid response from the API. Please try again.");
+          }
+          break;
+
+        } catch (error) {
+          console.error("Error generating wish:", error);
+          errorMessage.textContent = `Failed to generate wish: ${error.message}. Please try again.`;
+          errorMessage.classList.remove('hidden');
+          break;
+        } finally {
+          buttonText.textContent = 'Generate Wish';
+          spinner.classList.add('hidden');
+          generateWishBtn.disabled = false;
+        }
+      }
+      if (retries === maxRetries) {
+        errorMessage.textContent = "Failed to generate wish after multiple retries. Please try again later.";
+        errorMessage.classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Kashish - My Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to top left, #fef2f2, #ffe4e6, #fce7f3); /* Soft, romantic gradient */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    /* Custom list item styling with a subtle animation */
+    ul li {
+      position: relative;
+      padding-left: 1.8rem; /* Space for the emoji */
+      margin-bottom: 0.75rem;
+      font-size: 1.15rem;
+      color: #4a5568; /* Gray-700 */
+      transition: transform 0.2s ease-in-out;
+    }
+    ul li:hover {
+      transform: translateX(5px); /* Slight movement on hover */
+    }
+    ul li::before {
+      content: "🌸"; /* Flower emoji */
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      animation: float 2s ease-in-out infinite alternate; /* Subtle floating animation */
+    }
+    @keyframes float {
+      from { transform: translateY(-50%) translateX(0); }
+      to { transform: translateY(-55%) translateX(2px); }
+    }
+  </style>
+</head>
+<body class="text-gray-800">
+  <main class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-xl w-full text-center transform transition-all duration-500 hover:scale-105">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-pink-700 mb-8 animate-fade-in-down">
+      👑 About My Kashish 💖
+    </h2>
+    <ul class="list-none p-0 text-left mx-auto max-w-md">
+      <li><strong>Favorite Color:</strong> <span class="text-pink-500">Pink</span></li>
+      <li><strong>Favorite Food:</strong> <span class="text-red-500">Bhole Chature</span></li>
+      <li><strong>Favorite Series:</strong> <span class="text-purple-500">Harry Potter</span></li>
+      <li><strong>Hobbies:</strong> Reading, Drawing, Gossiping, Travelling, Loving Me (especially this one! 😉)</li>
+      <li><strong>Nicknames:</strong> Buggu, Bhedu</li>
+    </ul>
+    <a href="index.html" class="inline-block mt-10 px-8 py-3 bg-pink-500 text-white font-bold rounded-full shadow-lg hover:bg-pink-600 transition-all duration-300 ease-in-out transform hover:scale-105">
+      ← Back to Home
+    </a>
+  </main>
+
+  <style>
+    @keyframes fade-in-down {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-down {
+      animation: fade-in-down 1s ease-out forwards;
+    }
+  </style>
+</body>
+</html>
